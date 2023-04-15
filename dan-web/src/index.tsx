@@ -15,38 +15,50 @@ import Account from 'pages/Account'
 import Reward from 'pages/Reward'
 import CheckAuth from 'components/CheckAuth'
 import CheckRole from 'components/CheckRole'
+import {
+  StyleProvider,
+  legacyLogicalPropertiesTransformer,
+} from '@ant-design/cssinjs'
+import { App as AntDesignApp } from 'antd'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App />}>
-        <Route index element={<Portal />} />
-        <Route path='play' element={<Playground />} />
-        <Route path='nodes' element={<Nodes />} />
-        <Route path='api-reference' element={<ApiReference />} />
-        <Route
-          path='account'
-          element={
-            <CheckAuth>
-              <Account />
-            </CheckAuth>
-          }
-        />
-        <Route
-          path='reward'
-          element={
-            <CheckAuth>
-              <CheckRole userRole={1}>
-                <Reward />
-              </CheckRole>
-            </CheckAuth>
-          }
-        />
-      </Route>
-      <Route path='/oauth/success' element={<OAuthSuccess />} />
-      <Route path='/oauth/failure' element={<OAuthFailure />} />
-      <Route path='*' element={<Navigate replace to='/' />} />
-    </Routes>
-  </BrowserRouter>,
+  <StyleProvider
+    hashPriority='high'
+    transformers={[legacyLogicalPropertiesTransformer]}
+  >
+    <AntDesignApp style={{ height: '100%' }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}>
+            <Route index element={<Portal />} />
+            <Route path='play' element={<Playground />} />
+            <Route path='nodes' element={<Nodes />} />
+            <Route path='api-reference' element={<ApiReference />} />
+            <Route
+              path='account'
+              element={
+                <CheckAuth>
+                  <Account />
+                </CheckAuth>
+              }
+            />
+            <Route
+              path='reward'
+              element={
+                <CheckAuth>
+                  <CheckRole userRole={1}>
+                    <Reward />
+                  </CheckRole>
+                </CheckAuth>
+              }
+            />
+          </Route>
+          <Route path='/oauth/success' element={<OAuthSuccess />} />
+          <Route path='/oauth/failure' element={<OAuthFailure />} />
+          <Route path='*' element={<Navigate replace to='/' />} />
+        </Routes>
+      </BrowserRouter>
+    </AntDesignApp>
+  </StyleProvider>,
 )

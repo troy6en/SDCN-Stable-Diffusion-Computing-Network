@@ -1,4 +1,4 @@
-import { message, Spin, Table } from 'antd'
+import { App, Spin, Table } from 'antd'
 import { Node } from 'typings/Node'
 import { NodesResponseData } from 'api/nodes'
 import { AxiosError } from 'axios'
@@ -18,6 +18,7 @@ export interface MyNodesProps {
 const MyNodes = (props: MyNodesProps) => {
   const { refresh } = props
 
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const spinIcon = (
     <LoadingOutlined style={{ fontSize: 36, color: '#FFF' }} spin />
@@ -81,7 +82,7 @@ const MyNodes = (props: MyNodesProps) => {
       setPageNo(_nodes.pageNo)
       setTotalSize(_nodes.totalSize)
     },
-    [],
+    [message],
   )
 
   const onLaunch = useCallback(

@@ -7,35 +7,12 @@ import React, {
 } from 'react'
 import cx from 'classnames'
 import { PlusOutlined } from '@ant-design/icons'
-import { message, Upload } from 'antd'
+import { App, Upload } from 'antd'
 import type { UploadChangeParam } from 'antd/es/upload'
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface'
 import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface'
 
 import styles from './index.module.css'
-
-const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => callback(reader.result as string))
-  reader.readAsDataURL(img)
-}
-
-const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!')
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!')
-  }
-  return isJpgOrPng && isLt2M
-}
-
-const customRequest = async (options: RcCustomRequestOptions<void>) => {
-  const { onSuccess } = options
-  if (onSuccess) onSuccess()
-}
 
 interface propTypes {
   onChanged: (src: string) => void
@@ -49,6 +26,7 @@ export interface ImageInputWidgetRefHandle {
 
 const ImageInputWidget = forwardRef<ImageInputWidgetRefHandle, propTypes>(
   ({ onChanged, onSize, disabled }, forwardedRef) => {
+    const { message } = App.useApp()
     const [imageUrl, setImageUrl] = useState<string>()
 
     useImperativeHandle(
@@ -58,6 +36,15 @@ const ImageInputWidget = forwardRef<ImageInputWidgetRefHandle, propTypes>(
           setImageUrl('')
         },
       }),
+      [],
+    )
+
+    const getBase64 = useCallback(
+      (img: RcFile, callback: (url: string) => void) => {
+        const reader = new FileReader()
+        reader.addEventListener('load', () => callback(reader.result as string))
+        reader.readAsDataURL(img)
+      },
       [],
     )
 
@@ -71,7 +58,7 @@ const ImageInputWidget = forwardRef<ImageInputWidgetRefHandle, propTypes>(
           })
         }
       },
-      [onChanged],
+      [getBase64, onChanged],
     )
 
     const onImgLoad: ReactEventHandler<HTMLImageElement> = useCallback(
@@ -79,6 +66,30 @@ const ImageInputWidget = forwardRef<ImageInputWidgetRefHandle, propTypes>(
         if (onSize) onSize(naturalWidth, naturalHeight)
       },
       [onSize],
+    )
+
+    const beforeUpload = useCallback(
+      (file: RcFile) => {
+        const isJpgOrPng =
+          file.type === 'image/jpeg' || file.type === 'image/png'
+        if (!isJpgOrPng) {
+          message.error('You can only upload JPG/PNG file!')
+        }
+        const isLt2M = file.size / 1024 / 1024 < 2
+        if (!isLt2M) {
+          message.error('Image must smaller than 2MB!')
+        }
+        return isJpgOrPng && isLt2M
+      },
+      [message],
+    )
+
+    const customRequest = useCallback(
+      async (options: RcCustomRequestOptions<void>) => {
+        const { onSuccess } = options
+        if (onSuccess) onSuccess()
+      },
+      [],
     )
 
     return (

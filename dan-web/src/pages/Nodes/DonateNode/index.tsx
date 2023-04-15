@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import * as nodesApi from 'api/nodes'
 import to from 'await-to-js'
 import cx from 'classnames'
-import { Button, Form, Input, message, Spin, Typography } from 'antd'
+import { App, Button, Form, Input, Spin, Typography } from 'antd'
 import { Node } from 'typings/Node'
 import { LoadingOutlined } from '@ant-design/icons'
 
@@ -17,6 +17,7 @@ export interface DonateNodeProps {
 const DonateNode = (props: DonateNodeProps) => {
   const { refresh, close } = props
 
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const spinIcon = (
     <LoadingOutlined style={{ fontSize: 36, color: '#FFF' }} spin />
@@ -44,7 +45,7 @@ const DonateNode = (props: DonateNodeProps) => {
       refresh()
       close()
     },
-    [refresh, close],
+    [message, refresh, close],
   )
 
   return (

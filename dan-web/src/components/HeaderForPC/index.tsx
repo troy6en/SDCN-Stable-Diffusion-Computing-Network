@@ -50,7 +50,9 @@ const Header = () => {
           <NavLink
             to={'/api-reference'}
             className={({ isActive }) =>
-              isActive ? cx(styles.navLinkActive) : cx(styles.navLink)
+              isActive
+                ? cx(styles.navLink, styles.navLinkActive)
+                : cx(styles.navLink)
             }
           >
             API Reference
@@ -58,18 +60,29 @@ const Header = () => {
           <NavLink
             to={'/nodes'}
             className={({ isActive }) =>
-              isActive ? cx(styles.navLinkActive) : cx(styles.navLink)
+              isActive
+                ? cx(styles.navLink, styles.navLinkActive)
+                : cx(styles.navLink)
             }
           >
             Nodes
           </NavLink>
-          <NavLink to={'/#faq'} className={cx(styles.navLink)}>
+          <NavLink
+            to={'/#faq'}
+            className={() =>
+              location.hash === '#faq'
+                ? cx(styles.navLink, styles.navLinkActive)
+                : cx(styles.navLink)
+            }
+          >
             FAQ
           </NavLink>
           <NavLink
             to={'/play'}
             className={({ isActive }) =>
-              isActive ? cx(styles.navLinkActive) : cx(styles.navLink)
+              isActive
+                ? cx(styles.navLink, styles.navLinkActive)
+                : cx(styles.navLink)
             }
           >
             Playground

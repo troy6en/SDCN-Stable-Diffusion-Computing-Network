@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Button, Input, Space, Tabs, message } from 'antd'
+import { App, Button, Input, Space, Tabs } from 'antd'
 import cx from 'classnames'
 import copy from 'copy-text-to-clipboard'
 import { observer } from 'mobx-react-lite'
@@ -11,6 +11,8 @@ import UserAvatar from 'components/UserAvatar'
 import uiStore from 'stores/uiStore'
 
 const Account = () => {
+  const { message } = App.useApp()
+
   const encryptApiKey = useCallback(() => {
     const key = userStore.user.apiKey
     const length = key.length
@@ -77,6 +79,7 @@ const Account = () => {
                       icon={<CopyOutlined />}
                       onClick={() => {
                         try {
+                          console.log('copy')
                           copy(userStore.user.apiKey)
                           message.success('API Key copied to clipboard')
                         } catch (error) {

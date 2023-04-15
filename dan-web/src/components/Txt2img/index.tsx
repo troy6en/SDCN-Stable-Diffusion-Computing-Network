@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import cx from 'classnames'
-import { Form, Select, Button, Input, Typography, message } from 'antd'
+import { Form, Select, Button, Input, Typography, App } from 'antd'
 import {
   ModelFormGroup,
   LoraFormGroup,
@@ -27,6 +27,7 @@ const sizes = [
 ]
 
 const Txt2img = () => {
+  const { message } = App.useApp()
   const [form] = Form.useForm()
 
   const [imgUri, setImgUri] = useState<string | undefined>()
@@ -52,7 +53,7 @@ const Txt2img = () => {
         setImgLoading(false)
       }
     },
-    [],
+    [message],
   )
 
   return (
@@ -94,7 +95,7 @@ const Txt2img = () => {
               className={cx(
                 uiStore.isMobile
                   ? ['w-full mt-4']
-                  : ['h-[388px] w-full flex justify-center'],
+                  : ['min-h-[388px] w-full flex justify-center'],
               )}
             >
               <div

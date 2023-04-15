@@ -1,15 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react'
 import cx from 'classnames'
 import check from 'check-types'
-import {
-  Form,
-  Select,
-  Button,
-  Input,
-  Typography,
-  message,
-  InputNumber,
-} from 'antd'
+import { Form, Select, Button, Input, Typography, InputNumber, App } from 'antd'
 import {
   ModelFormGroup,
   LoraFormGroup,
@@ -61,6 +53,7 @@ const sizes = [
 ]
 
 const Img2img = () => {
+  const { message } = App.useApp()
   const [form] = Form.useForm()
   const [outputImgUri, setOutputImgUri] = useState<string | undefined>()
   const [inputImg, setInputImg] = useState<string>('')
@@ -101,7 +94,7 @@ const Img2img = () => {
         setImgLoading(false)
       }
     },
-    [inputImg],
+    [inputImg, message],
   )
 
   const onInputSize = useCallback(
@@ -163,7 +156,7 @@ const Img2img = () => {
               className={cx(
                 uiStore.isMobile
                   ? ['flex flex-col gap-2.5']
-                  : ['flex h-[788px] gap-2.5'],
+                  : ['flex min-h-[388px] gap-2.5'],
               )}
             >
               <ImageInputWidget onChanged={setInputImg} onSize={onInputSize} />

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import cx from 'classnames'
-import { Button, Form, Input, InputNumber, message } from 'antd'
+import { App, Button, Form, Input, InputNumber } from 'antd'
 
 import styles from './index.module.css'
 
@@ -13,6 +13,7 @@ interface FormValues {
 }
 
 const Reward = () => {
+  const { message } = App.useApp()
   const [form] = Form.useForm<FormValues>()
   const { updateUser } = useUser()
 
@@ -38,7 +39,7 @@ const Reward = () => {
           //
         })
     },
-    [updateUser],
+    [message, updateUser],
   )
 
   return (

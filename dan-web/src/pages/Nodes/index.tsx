@@ -4,7 +4,7 @@ import cx from 'classnames'
 import styles from './index.module.css'
 import NodeList from './NodeList'
 import DonorList from './DonorList'
-import { Button, message, Modal } from 'antd'
+import { App, Button, Modal } from 'antd'
 import MyNodes from './MyNodes'
 import DonateNode from './DonateNode'
 import { NodesResponseData, DonorsResponseData } from 'api/nodes'
@@ -18,6 +18,7 @@ import { observer } from 'mobx-react-lite'
 import uiStore from 'stores/uiStore'
 
 const Nodes = () => {
+  const { message } = App.useApp()
   const { showSignModel } = useSignInModal()
 
   const PAGE_SIZE = 10
@@ -47,7 +48,7 @@ const Nodes = () => {
       setNodesPageNo(_nodes.pageNo)
       setNodesTotalSize(_nodes.totalSize)
     },
-    [],
+    [message],
   )
 
   const [donors, setDonors] = useState<Donor[]>([])
@@ -75,7 +76,7 @@ const Nodes = () => {
       setDonorsPageNo(_donors.pageNo)
       setDonorsTotalSize(_donors.totalSize)
     },
-    [],
+    [message],
   )
 
   const handleDonateNode = useCallback(() => {

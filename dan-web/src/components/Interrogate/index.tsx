@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import cx from 'classnames'
-import { Button, Checkbox, Spin, Typography, message } from 'antd'
+import { App, Button, Checkbox, Spin, Typography } from 'antd'
 import styles from './index.module.css'
 import { CheckboxValueType } from 'antd/es/checkbox/Group'
 import ImageInputWidget, {
@@ -24,6 +24,7 @@ interface InterrogateModel {
 }
 
 const Interrogate = () => {
+  const { message } = App.useApp()
   const spinIcon = (
     <LoadingOutlined style={{ fontSize: 36, color: '#999' }} spin />
   )
@@ -96,7 +97,7 @@ const Interrogate = () => {
         )
       }
     },
-    [setResults, modelOptions, showLoading, hideLoading],
+    [showLoading, hideLoading, modelOptions, message],
   )
 
   const interrogateAll = useCallback(

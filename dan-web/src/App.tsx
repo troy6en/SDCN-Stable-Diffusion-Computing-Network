@@ -17,11 +17,12 @@ import { AxiosError } from 'axios'
 import { updatePublicApiKey } from 'api/user'
 import config from 'api/config'
 import useUser from 'hooks/useUser'
-import { message } from 'antd'
 import userStore from 'stores/userStore'
+import { App as AntApp } from 'antd'
 
 function App() {
   console.log(env)
+  const { message } = AntApp.useApp()
 
   try {
     ReactGA.initialize(env.REACT_APP_GOOGLE_ANALYTICS_ID)
@@ -78,7 +79,7 @@ function App() {
 
     _updatePublicApiKey()
     _updateUserInfo()
-  }, [updateUser])
+  }, [message, updateUser])
 
   return (
     <div className={cx('App min-h-full w-full flex flex-col')}>
