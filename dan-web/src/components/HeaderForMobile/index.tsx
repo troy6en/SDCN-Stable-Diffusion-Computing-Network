@@ -175,14 +175,10 @@ const Header = () => {
                 {userStore.isLoggedIn ? (
                   <Collapse
                     ghost
-                    expandIconPosition='end'
                     className={cx('w-full')}
+                    expandIconPosition='end'
                     expandIcon={({ isActive }) => {
-                      return isActive ? (
-                        <DownOutlined className='relative top-[7px]' />
-                      ) : (
-                        <RightOutlined className='relative top-[7px]' />
-                      )
+                      return isActive ? <DownOutlined /> : <RightOutlined />
                     }}
                   >
                     <Collapse.Panel header={avatarElement()} key='1'>

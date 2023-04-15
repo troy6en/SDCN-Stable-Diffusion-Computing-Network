@@ -74,18 +74,18 @@ const Header = () => {
           >
             Playground
           </NavLink>
-          <Button
-            type='ghost'
-            shape='circle'
+          <a
             href={process.env.REACT_APP_GITHUB_URL}
             target='_blank'
+            rel='noreferrer'
+            referrerPolicy='no-referrer'
             className={cx('flex justify-center items-center mx-2.5')}
           >
-            <Image
+            <img
               src='https://img.shields.io/github/stars/fiatrete/DAN-Stable-Diffusion-Computing-Network?style=social'
-              preview={false}
+              alt=''
             />
-          </Button>
+          </a>
         </nav>
         <div className={cx('flex items-center gap-x-6', styles.right)}>
           {userStore.isLoggedIn ? (

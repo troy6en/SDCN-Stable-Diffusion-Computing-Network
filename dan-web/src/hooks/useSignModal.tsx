@@ -94,7 +94,12 @@ const useSignInModal = () => {
       title: '',
       closable: true,
       icon: null,
-      footer: null,
+      okButtonProps: {
+        style: {
+          display: 'none',
+        },
+      },
+      // footer: null,
       transitionName: '',
       centered: true,
       width: 'auto',

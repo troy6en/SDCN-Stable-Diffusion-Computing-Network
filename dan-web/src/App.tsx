@@ -3,7 +3,6 @@ import cx from 'classnames'
 import { Outlet } from 'react-router-dom'
 import ReactGA from 'react-ga4'
 
-import 'antd/dist/reset.css'
 import 'App.css'
 
 import Footer from 'components/Footer'
@@ -33,7 +32,7 @@ function App() {
 
   useLayoutEffect(() => {
     const handleWindowResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth <= 768) {
         uiStore.isMobile = true
       } else {
         uiStore.isMobile = false

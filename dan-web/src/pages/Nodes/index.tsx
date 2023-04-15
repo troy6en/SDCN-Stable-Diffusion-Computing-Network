@@ -88,7 +88,12 @@ const Nodes = () => {
       title: 'Donate Node',
       closable: true,
       icon: null,
-      footer: null,
+      okButtonProps: {
+        style: {
+          display: 'none',
+        },
+      },
+      // footer: null,
       transitionName: '',
       width: 368,
       content: (
@@ -115,7 +120,12 @@ const Nodes = () => {
       title: 'My Nodes',
       closable: true,
       icon: null,
-      footer: null,
+      okButtonProps: {
+        style: {
+          display: 'none',
+        },
+      },
+      // footer: null,
       transitionName: '',
       width: 900,
       content: (
